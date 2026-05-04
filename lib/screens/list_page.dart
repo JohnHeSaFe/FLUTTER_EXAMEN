@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'detail_page.dart';
+import 'package:flutter_examen/routes.dart';
 
 class ListPage extends StatelessWidget {
   const ListPage({super.key});
@@ -24,19 +24,15 @@ class ListPage extends StatelessWidget {
             )
           : ListView.separated(
               itemCount: _items.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
+              separatorBuilder: (context, index) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: CircleAvatar(child: Text('$index')),
                   title: Text('Elemento $index: ${_items[index]}'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => Home(),
-                      ),
-                    );
+                    Navigator.pushReplacementNamed(context, AppRoutes.detail,
+                        arguments: {'index': index, 'text': _items[index]});
                   },
                 );
               },
